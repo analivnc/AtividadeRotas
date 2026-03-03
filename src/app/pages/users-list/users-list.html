@@ -1,0 +1,27 @@
+<h2>Lista de Usuários</h2>
+
+<!-- Estado: Carregando -->
+<div *ngIf="carregando"> <!-- Mostra mensagem enquanto a API está carregando. -->
+  <p>Carregando usuários...</p>
+</div>
+
+<!-- Estado: Erro -->
+<div *ngIf="erro"> <!-- Mostra mensagem se der erro. -->
+  <p>Erro ao carregar usuários.</p>
+</div>
+
+<div *ngIf="!carregando && !erro">
+  <div *ngFor="let user of usuarios">  <!-- Para cada usuário dentro do array usuarios, cria um bloco na tela. -->
+    
+    <p><strong>Nome:</strong> {{ user.name }}</p>
+    <p><strong>Email:</strong> {{ user.email }}</p>
+    <p><strong>Cidade:</strong> {{ user.address.city }}</p>
+
+    <a [routerLink]="['/users', user.id]">
+      Ver detalhes
+    </a>
+
+    <hr>
+
+  </div>
+</div>
