@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { ChangeDetectorRef, Component, OnInit } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { RouterLink } from '@angular/router';
 import { UserService } from '../../services/user';
@@ -17,13 +17,14 @@ export class UsersList implements OnInit {
   carregando = true;
   erro = false;
 
-  constructor(private userService: UserService) {}
+  constructor(private userService: UserService,private cdr: ChangeDetectorRef) {}
 
   ngOnInit(): void {
     this.userService.listarUsuarios().subscribe({
       next: (dados) => {
         this.usuarios = dados;
         this.carregando = false;
+          this.cdr.detectChanges();
       },
       error: () => {
         this.erro = true;

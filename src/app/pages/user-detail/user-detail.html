@@ -1,22 +1,32 @@
-<h2>Detalhe do Usuário</h2>
-
-<div *ngIf="carregando">
-  <p>Carregando...</p>
+<h2>Detalhes do Usuário</h2>
+ 
+<section class="voltar" routerLink="users">
+  <span>Voltar</span>
+</section>
+ 
+<div *ngIf="loading">
+  <p>Carregando usuário...</p>
 </div>
-
-<div *ngIf="erro">
-  <p>ID inválido.</p>
+ 
+<!-- Se erro for true e nao estiver carregando, mostra erro -->
+<div *ngIf="erro && !loading">
+  <p>Erro ao carregar o usuário.</p>
 </div>
-
-<div *ngIf="naoEncontrado">
-  <p>Usuário não encontrado.</p>
+ 
+<!-- Se nao estiver carregando, nao tiver erro e existir user, mostra os dados -->
+<div *ngIf="!loading && !erro && user">
+  <h3>{{ user.name }}</h3>
+  <p>Email: {{ user.email }}</p>
+  <p>Telefone: {{ user.phone }}</p>
+ 
+  <h4>Endereço</h4>
+  <p>{{ user.address.street }}</p>
+  <p>{{ user.address.city }}</p>
+ 
+  <h4>Geo</h4>
+  <p>Lat: {{ user.address.geo.lat }}</p>
+  <p>Lng: {{ user.address.geo.lng }}</p>
+ 
+  <hr>
 </div>
-
-<div *ngIf="usuario">
-  <p><strong>Nome:</strong> {{ usuario.name }}</p>
-  <p><strong>Email:</strong> {{ usuario.email }}</p>
-  <p><strong>Telefone:</strong> {{ usuario.phone }}</p>
-  <p><strong>Website:</strong> {{ usuario.website }}</p>
-  <p><strong>Cidade:</strong> {{ usuario.address.city }}</p>
-  <p><strong>Empresa:</strong> {{ usuario.company.name }}</p>
-</div>
+ 

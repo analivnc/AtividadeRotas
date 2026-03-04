@@ -3,45 +3,64 @@ import { CommonModule } from '@angular/common';
 import { ActivatedRoute } from '@angular/router';
 import { UserService } from '../../services/user';
 import { User } from '../../models/user.interface';
+import { ChangeDetectorRef } from '@angular/core';
+import { RouterLink } from '@angular/router';
+import { finalize } from 'rxjs';
 
 @Component({
   selector: 'app-user-detail',
   standalone: true,
-  imports: [CommonModule],
+  imports: [CommonModule,RouterLink],
   templateUrl: './user-detail.html',
   styleUrl: './user-detail.css',
 })
-export class UserDetail implements OnInit {
-
-  usuario?: User;
-  carregando = true;
-  erro = false;
-  naoEncontrado = false;
-
+ 
+export class UserDetailComponent implements OnInit {
+ 
+  user!: User;
+ 
   constructor(
     private route: ActivatedRoute,
-    private userService: UserService
+    private userService: UserService,
+    private cdr: ChangeDetectorRef
   ) {}
-
-  ngOnInit(): void {
-
-    const id = Number(this.route.snapshot.paramMap.get('id'));
-
-    if (!id) {
-      this.erro = true;
-      this.carregando = false;
-      return;
-    }
-
-    this.userService.buscarUsuarioPorId(id).subscribe({
-      next: (dados) => {
-        this.usuario = dados;
-        this.carregando = false;
+ 
+  loading:boolean = false;
+  erro:boolean=false;
+ 
+ 
+ngOnInit(): void {
+ 
+  const id = Number(this.route.snapshot.paramMap.get('id'));
+ 
+  // Validação do ID   // - não existir id
+  // - não for número (NaN)
+  // - for maior que 10
+  // então mostra erro e para a execução
+  if (!id || isNaN(id) || id > 10) {
+    this.erro = true;
+    this.loading = false;
+    return;
+  }
+ 
+  this.loading = true;
+  this.erro = false;
+ 
+  this.userService.buscarUsuarioPorId(id)
+    .pipe(
+      finalize(() => {  // finalize sempre executa no final (sucesso ou erro)
+        this.loading = false;
+        this.cdr.detectChanges(); // força atualização da tela
+      })
+    )
+    .subscribe({
+      next: (data) => {   // Se der certo
+        this.user = data;// salva os dados do usuário
       },
-      error: () => {
-        this.naoEncontrado = true;
-        this.carregando = false;
+      error: (err) => {
+        console.error(err);
+        this.erro = true;
       }
     });
-  }
+}
 }
