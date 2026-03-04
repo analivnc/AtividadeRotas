@@ -1,4 +1,4 @@
-#Projeto Angular – Lista e Detalhe de Usuários
+Projeto Angular – Lista e Detalhe de Usuários
 
 Este projeto foi desenvolvido utilizando Angular com o objetivo de praticar rotas dinâmicas, uso de paramMap, consumo de API e utilização de Observable.
 
@@ -12,7 +12,7 @@ HTML
 CSS
 API pública JSONPlaceholder
 
-##Funcionalidades:
+Funcionalidades:
 
 O projeto possui uma tela de listagem de usuários, onde os dados são buscados através do HttpClient. Ao selecionar um usuário, a aplicação navega para uma rota dinâmica no formato /usuario/:id.
 
