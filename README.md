@@ -17,5 +17,4 @@ O Observable foi utilizado porque as requisições HTTP no Angular são assíncr
 O Angular utiliza o Observable para esperar a resposta chegar e permitir que o código execute uma ação quando os dados estiverem disponíveis, normalmente por meio do subscribe().
 Além disso, o Observable facilita o tratamento de erros e o controle das requisições, sendo o padrão utilizado pelo HttpClient no Angular.
 
-<img width="120" height="101" alt="2026-03-05_08h59_17" src="https://github.com/user-attachments/assets/29725f80-9f73-447a-be26-313b67c629fc" />
-<img width="120" height="101" alt="2026-03-05_09h00_25" src="https://github.com/user-attachments/assets/489005a5-c46f-49b3-8585-ab143d753801" />
+
