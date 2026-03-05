@@ -1,40 +1,18 @@
 Projeto Angular – Lista e Detalhe de Usuários
 
-Este projeto foi desenvolvido utilizando Angular com o objetivo de praticar rotas dinâmicas, uso de paramMap, consumo de API e utilização de Observable.
+O que é rota dinâmica:
+Rota dinâmica no Angular é uma rota que utiliza parâmetros na URL (como :id) para carregar conteúdos diferentes
+usando o mesmo componente, tornando a aplicação mais organizada, reutilizável e escalável.
 
-O sistema realiza a listagem de usuários consumindo dados de uma API pública e permite visualizar os detalhes de cada usuário por meio de uma rota dinâmica.
+O que é paramMap:
+O paramMap no Angular é utilizado para acessar os parâmetros de rotas dinâmicas. 
+Ele permite capturar valores da URL (como :id) dentro do componente, possibilitando
+buscar dados específicos, como detalhes de um usuário ou produto.
 
-Tecnologias utilizadas:
-
-Angular
-TypeScript
-HTML
-CSS
-API pública JSONPlaceholder
-
-Funcionalidades:
-
-O projeto possui uma tela de listagem de usuários, onde os dados são buscados através do HttpClient. Ao selecionar um usuário, a aplicação navega para uma rota dinâmica no formato /usuario/:id.
-
-Essa rota utiliza um parâmetro dinâmico (id), que é capturado no componente através do paramMap. Com esse id, é feita uma nova requisição à API para buscar as informações específicas do usuário selecionado.
-
-Conceitos aplicados:
-
-Rota Dinâmica:
-Permite criar uma única rota capaz de atender diferentes usuários, alterando apenas o valor do parâmetro na URL.
-
-paramMap:
-Utilizado para capturar o parâmetro da rota e extrair o valor do id presente na URL.
-
-Observable:
-Utilizado nos métodos do serviço para realizar requisições HTTP de forma assíncrona. Como as chamadas à API retornam dados futuramente, o Observable permite que o Angular aguarde e trate essas respostas corretamente.
-
-Estrutura do projeto:
-
-O projeto está organizado em páginas, serviços e modelos, separando responsabilidades para manter o código limpo e estruturado.
-
-Objetivo do projeto:
-
-Praticar navegação entre rotas, captura de parâmetros dinâmicos, consumo de API e organização de aplicações Angular utilizando boas práticas.
-
-Desenvolvido por Ana Lívia Neves Correia.
+Onde você usou observable e por quê?
+Eu utilizei o Observable nos métodos listarUsuarios() e buscarUsuarioPorId().
+No método listarUsuarios(), o retorno é do tipo Observable<User[]>, pois ele faz uma requisição HTTP para buscar todos os usuários da API, retornando uma lista.
+No método buscarUsuarioPorId(id: number), o retorno é Observable<User>, pois ele faz uma requisição para buscar apenas um usuário específico com base no ID informado.
+O Observable foi utilizado porque as requisições HTTP no Angular são assíncronas, ou seja, a resposta da API não chega imediatamente. 
+O Angular utiliza o Observable para esperar a resposta chegar e permitir que o código execute uma ação quando os dados estiverem disponíveis, normalmente por meio do subscribe().
+Além disso, o Observable facilita o tratamento de erros e o controle das requisições, sendo o padrão utilizado pelo HttpClient no Angular.
